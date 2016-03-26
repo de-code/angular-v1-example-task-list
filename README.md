@@ -8,7 +8,8 @@ Documentation
 -------------
 * [Unit Testing Components](doc/unitTestingComponents.md)
 
-Technical Specification:
+Technical Specification
+-----------------------
 
 * Language: JavaScript (ES6/2015)
 * Web framework: Angular 1.5
