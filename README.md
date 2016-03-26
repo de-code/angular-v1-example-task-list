@@ -11,6 +11,7 @@ Documentation
 Technical Specification:
 
 * Language: JavaScript (ES6/2015)
+* Web framework: Angular 1.5
 * Build tool: Webpack
 * Transpiler: Babel
 * Test runner: Karma
