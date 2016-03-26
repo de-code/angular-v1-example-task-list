@@ -6,6 +6,7 @@ However, the main focus of this is to provide examples for testing.
 
 Documentation
 -------------
+* [Setup](doc/setup.md)
 * [Unit Testing Components](doc/unitTestingComponents.md)
 
 Technical Specification
@@ -17,32 +18,3 @@ Technical Specification
 * Transpiler: Babel
 * Test runner: Karma
 * Test framework: Jasmine
-
-Setup
------
-`npm install`
-
-Test
-----
-`npm test`
-
-Debug tests (single-run=false):
-
-`npm test:debug`
-
-And open the URL displayed, by default: http://localhost:9876/
-
-Build
------
-`npm run build`
-
-Start
------
-`npm start`
-
-IDE / Visual Studio Code integration
-------------------------------------
-Build: Command + Shift + B
-
-Test: Command + Shift + T
-
