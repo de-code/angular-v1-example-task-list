@@ -8,7 +8,10 @@
     "watch": "webpack --watch",
     "start": "http-server -p 3000 -c 3",
     "test": "karma start --single-run --no-auto-watch karma.config.js",
-    "test:debug": "karma start --single-run=false --auto-watch karma.config.js"
+    "test:debug": "karma start --single-run=false --auto-watch karma.config.js",
+    "webdriver:update": "webdriver-manager update",
+    "webdriver:start": "webdriver-manager start",
+    "e2e": "protractor"
   },
   "author": "Daniel Ecer",
   "license": "MIT",
@@ -25,6 +28,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
     "phantomjs-prebuilt": "^2.1.6",
+    "protractor": "^3.2.2",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
   },
