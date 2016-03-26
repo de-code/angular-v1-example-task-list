@@ -1,0 +1,55 @@
+task-list {
+  display: block;
+  max-width: 500px;
+}
+
+task-list-item {
+  margin: 5px;
+  padding: 5px;
+  display: block;
+  border: 1px solid lightgrey;
+  font-size: 1em;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+task-list-item .assignee {
+  font-weight: bold;
+}
+
+task-list-item .assignee::after {
+  content: ":"
+}
+
+task-list-item-add {
+  margin: 5px;
+  padding: 0;
+  display: block;
+  border: 1px solid lightgrey;
+}
+
+task-list-item-add > div {
+  margin: 0;
+  padding: 5px;
+  display: block;
+  position: relative;
+}
+
+task-list-item-add input {
+  margin: 0;
+  padding: 0;
+  display: block;
+  width: 100%;
+  border: none;
+}
+
+task-list-item-add input:focus {
+  border: none;
+}
+
+task-list-item-add input::-webkit-input-placeholder {
+    color: white;
+}
+task-list-item-add input:focus::-webkit-input-placeholder {
+    color: #999;
+}
