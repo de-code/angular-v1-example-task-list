@@ -23,7 +23,7 @@
     "problemMatcher": "$lessCompile"
   }, {
     "taskName": "build",
-    // Make this the default build command.
+    // Make this the default test command.
     "isBuildCommand": true,
     "isTestCommand": false,
     // Show the output window only if unrecognized errors occur.
