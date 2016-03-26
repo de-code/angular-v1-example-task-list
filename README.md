@@ -18,3 +18,4 @@ Technical Specification
 * Transpiler: Babel
 * Test runner: Karma
 * Test framework: Jasmine
+* End to end test framework: Protractor
