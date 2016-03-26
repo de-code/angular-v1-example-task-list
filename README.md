@@ -42,5 +42,5 @@ IDE / Visual Studio Code integration
 ------------------------------------
 Build: Command + Shift + B
 
-Test: Command Shift
+Test: Command + Shift + T
 
