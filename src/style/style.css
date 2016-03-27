@@ -21,6 +21,15 @@ task-list-item .assignee::after {
   content: ":"
 }
 
+task-list-item .delete {
+  float: right;
+  background: #eee;
+  border: 2px solid lightgray;
+  font-weight: bold;
+  color: #444;
+}
+
+
 task-list-item-add {
   margin: 5px;
   padding: 0;
