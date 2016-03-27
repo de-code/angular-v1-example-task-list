@@ -2,10 +2,14 @@ import ListHistory from "../list-history.js";
 
 describe("ListHistory", () => {
   let listHistory;
+  let onChange;
 
-  describe("with empty initial list", () => {
+  describe("with empty initial list and onChange listener", () => {
     beforeEach(() => {
-      listHistory = new ListHistory();
+      onChange = jasmine.createSpy('onChange');
+      listHistory = new ListHistory([], {
+        onChange: onChange
+      });
     });
 
     it("should be empty", () => {
@@ -37,8 +41,13 @@ describe("ListHistory", () => {
         expect(listHistory.hasRedo()).toBe(false);
       });
 
+      it("should call onChange", () => {
+        expect(onChange).toHaveBeenCalled();
+      });
+
       describe("and adding another item", () => {
         beforeEach(() => {
+          onChange.calls.reset();
           listHistory.push("item2");
         });
 
@@ -54,18 +63,28 @@ describe("ListHistory", () => {
           expect(listHistory.hasRedo()).toBe(false);
         });
 
+        it("should call onChange", () => {
+          expect(onChange).toHaveBeenCalled();
+        });
+
         describe("and calling filter", () => {
           beforeEach(() => {
+            onChange.calls.reset();
             listHistory.filter(item => item !== "item1");
           });
 
           it("should return filtered list", () => {
             expect(listHistory.list().toArray()).toEqual(["item2"]);
           });
+
+          it("should call onChange", () => {
+            expect(onChange).toHaveBeenCalled();
+          });
         });
 
         describe("and undo", () => {
           beforeEach(() => {
+            onChange.calls.reset();
             listHistory.undo();
           });
 
@@ -81,6 +100,10 @@ describe("ListHistory", () => {
             expect(listHistory.hasRedo()).toBe(true);
           });
 
+          it("should call onChange", () => {
+            expect(onChange).toHaveBeenCalled();
+          });
+
           describe("and adding a different item", () => {
             beforeEach(() => {
               listHistory.push("itemx");
@@ -93,6 +116,7 @@ describe("ListHistory", () => {
 
           describe("and redo", () => {
             beforeEach(() => {
+              onChange.calls.reset();
               listHistory.redo();
             });
 
@@ -106,6 +130,10 @@ describe("ListHistory", () => {
 
             it("should return false for hasRedo", () => {
               expect(listHistory.hasRedo()).toBe(false);
+            });
+
+            it("should call onChange", () => {
+              expect(onChange).toHaveBeenCalled();
             });
           });
 
@@ -131,7 +159,7 @@ describe("ListHistory", () => {
     });
   });
 
-  describe("with initial list", () => {
+  describe("with initial list and no onChange listener", () => {
     beforeEach(() => {
       listHistory = new ListHistory(["item1", "item2"]);
     });
@@ -146,6 +174,10 @@ describe("ListHistory", () => {
 
     it("should return false for hasRedo", () => {
       expect(listHistory.hasRedo()).toBe(false);
+    });
+
+    it("should not throw an exception when added item", () => {
+      listHistory.push("item1");
     });
   });
 });

@@ -2,11 +2,26 @@ import ListHistory from "./list-history.js";
 
 export default class {
   static get $inject() {
-    return ["tasksExampleData"];
+    return ["localStorage", "tasksExampleData"];
   }
 
-  constructor(tasksExampleData) {
-    this.listHistory = new ListHistory(tasksExampleData);
+  constructor(localStorage, tasksExampleData) {
+    const parseJsonOrNull = (json) => {
+      try {
+        return angular.fromJson(savedData);
+      } catch (e) {
+        return null;
+      }
+    }
+    const storageKey = 'taskList';
+    const savedData = localStorage.getItem(storageKey);
+    const parsedData = savedData ? parseJsonOrNull(savedData) : tasksExampleData;
+    const initialData = parsedData || tasksExampleData;
+    this.listHistory = new ListHistory(initialData, {
+      onChange: () => {
+        localStorage.setItem(storageKey, angular.toJson(this.list().toArray()))
+      }
+    });
   }
 
   history() {

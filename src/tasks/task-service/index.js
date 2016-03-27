@@ -3,4 +3,5 @@ import ExampleData from './example-data.js';
 
 export default angular.module('app.task.service', [])
   .service("taskService", TaskService)
-  .value("tasksExampleData", ExampleData);
+  .value("tasksExampleData", ExampleData)
+  .factory("localStorage", () => window.localStorage);

@@ -2,7 +2,8 @@ import Immutable from "immutable";
 import History from "undo-stack";
 
 export default class {
-  constructor(initialList) {
+  constructor(initialList, options) {
+    this.options = options;
     this.currentList = Immutable.List(initialList);
     this.history = new History({
       logger: console.log.bind(console),
@@ -14,6 +15,12 @@ export default class {
     return this.currentList;
   }
 
+  _fireOnChange() {
+    if ((this.options) && (this.options.onChange)) {
+      this.options.onChange();
+    }
+  }
+
   do(op, name) {
     const previousList = this.currentList;
     const newList = op(previousList);
@@ -22,6 +29,7 @@ export default class {
       redo: () => this.currentList = newList,
       undo: () => this.currentList = previousList
     });
+    this._fireOnChange();
   }
 
   push(item) {
@@ -42,9 +50,11 @@ export default class {
 
   undo() {
     this.history.undo();
+    this._fireOnChange();
   }
 
   redo() {
     this.history.redo();
+    this._fireOnChange();
   }
 }
