@@ -60,18 +60,75 @@ describe("TaskListItemAdd component", () => {
 
   describe("Entering an assignee with a task", () => {
     beforeEach(() => {
-      taskListItemAdd.enterAndBlur(SOME_ASSIGNEE + ": " + SOME_TASK);
+      taskListItemAdd.enter(SOME_ASSIGNEE + ": " + SOME_TASK);
     });
 
-    it("should call on-add handler", () => {
-      expect($scope.onAdd).toHaveBeenCalledWith({
-        assignee: SOME_ASSIGNEE,
-        task: SOME_TASK
+    describe("and blur", () => {
+      beforeEach(() => {
+        taskListItemAdd.blur();
+      });
+
+      it("should call on-add handler", () => {
+        expect($scope.onAdd).toHaveBeenCalledWith({
+          assignee: SOME_ASSIGNEE,
+          task: SOME_TASK
+        });
+      });
+
+      it("should clear input field", () => {
+        expect(taskListItemAdd.value()).toBe("");
       });
     });
 
-    it("should clear input field", () => {
-      expect(taskListItemAdd.value()).toBe("");
+    describe("and press enter using key", () => {
+      beforeEach(() => {
+        taskListItemAdd.pressEnterUsingKey();
+      });
+
+      it("should call on-add handler", () => {
+        expect($scope.onAdd).toHaveBeenCalledWith({
+          assignee: SOME_ASSIGNEE,
+          task: SOME_TASK
+        });
+      });
+
+      it("should clear input field", () => {
+        expect(taskListItemAdd.value()).toBe("");
+      });
+    });
+
+    describe("and press enter using key code", () => {
+      beforeEach(() => {
+        taskListItemAdd.pressEnterUsingKeyCode();
+      });
+
+      it("should call on-add handler", () => {
+        expect($scope.onAdd).toHaveBeenCalledWith({
+          assignee: SOME_ASSIGNEE,
+          task: SOME_TASK
+        });
+      });
+
+      it("should clear input field", () => {
+        expect(taskListItemAdd.value()).toBe("");
+      });
+    });
+
+    describe("and press enter using which", () => {
+      beforeEach(() => {
+        taskListItemAdd.pressEnterUsingWhich();
+      });
+
+      it("should call on-add handler", () => {
+        expect($scope.onAdd).toHaveBeenCalledWith({
+          assignee: SOME_ASSIGNEE,
+          task: SOME_TASK
+        });
+      });
+
+      it("should clear input field", () => {
+        expect(taskListItemAdd.value()).toBe("");
+      });
     });
   });
 });
