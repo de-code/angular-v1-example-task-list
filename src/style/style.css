@@ -14,6 +14,15 @@ button:hover {
 task-list {
   display: block;
   max-width: 500px;
+  margin: auto;
+}
+
+task-list h1 {
+  margin: 5px;
+  padding: 5px;
+  background: #fff;
+  color: #444;
+  border: 1px solid #aaa;
 }
 
 task-list-item {
