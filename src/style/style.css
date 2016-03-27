@@ -45,11 +45,12 @@ task-list-item-add input {
 
 task-list-item-add input:focus {
   border: none;
+  outline: none;
 }
 
 task-list-item-add input::-webkit-input-placeholder {
-    color: white;
+  color: white;
 }
 task-list-item-add input:focus::-webkit-input-placeholder {
-    color: #999;
+  color: #999;
 }
