@@ -22,33 +22,39 @@ describe("TaskService", () => {
     });
   });
 
+  describe("history", () => {
+    it("should return list history", () => {
+      expect(taskService.history()).toBeDefined();
+    });
+  });
+
   describe("list", () => {
     it("should return example data by default", () => {
-      expect(taskService.list()).toEqual(tasksExampleData);
+      expect(taskService.list().toArray()).toEqual(tasksExampleData);
     });
   });
 
   describe("add", () => {
     it("should add item to list", () => {
-      const expected = taskService.list().concat([SOME_ITEM]);
+      const expected = taskService.list().toArray().concat([SOME_ITEM]);
       taskService.add(SOME_ITEM);
-      expect(taskService.list()).toEqual(expected);
+      expect(taskService.list().toArray()).toEqual(expected);
     });
   });
 
   describe("remove", () => {
     it("should remove item from list", () => {
-      const expected = angular.copy(taskService.list());
+      const expected = angular.copy(taskService.list().toArray());
       taskService.add(SOME_ITEM);
       taskService.remove(SOME_ITEM);
-      expect(taskService.list()).toEqual(expected);
+      expect(taskService.list().toArray()).toEqual(expected);
     });
 
     it("should remove copy of item from list", () => {
-      const expected = angular.copy(taskService.list());
+      const expected = angular.copy(taskService.list().toArray());
       taskService.add(angular.copy(SOME_ITEM));
       taskService.remove(SOME_ITEM);
-      expect(taskService.list()).toEqual(expected);
+      expect(taskService.list().toArray()).toEqual(expected);
     });
   });
 });

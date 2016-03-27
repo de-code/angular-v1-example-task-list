@@ -5,6 +5,8 @@ import taskListModule from "../index.js";
 
 import utils from "../../../__tests__/spec-utils.js";
 
+import ListHistory from "../../task-service/list-history.js";
+
 import taskListPageObjectFactory from "./task-list-component.page-object.js";
 
 describe("TaskList component", () => {
@@ -14,6 +16,7 @@ describe("TaskList component", () => {
   const OTHER_TASK = "Don't break";
 
   let $scope;
+  let listHistory;
   let list;
   let taskService;
   let taskList;
@@ -23,7 +26,7 @@ describe("TaskList component", () => {
   };
 
   beforeEach(() => {
-    taskService = jasmine.createSpyObj('taskService', ['list', 'add', 'remove']);
+    taskService = jasmine.createSpyObj('taskService', ['list', 'history', 'add', 'remove']);
     var testModule = angular.module("tasks.test", [taskListModule.name])
       .value('taskService', taskService);
     angular.mock.module(testModule.name);
@@ -32,9 +35,10 @@ describe("TaskList component", () => {
       $scope = $rootScope.$new();
     });
 
-    taskService.list.and.callFake(() => angular.copy(list));
-    taskService.add.and.callFake((item) => list.push(item));
-    taskService.remove.and.callFake((item) => list = list.filter((current) => !angular.equals(current, item)));
+    taskService.list.and.callFake(() => listHistory.list());
+    taskService.history.and.callFake(() => listHistory);
+    taskService.add.and.callFake((item) => listHistory.push(item));
+    taskService.remove.and.callFake((item) => listHistory.filter((current) => !angular.equals(current, item)));
   });
 
   afterEach(() => {
@@ -43,7 +47,7 @@ describe("TaskList component", () => {
 
   describe("with an empty task list", () => {
     beforeEach(() => {
-      list = [];
+      listHistory = new ListHistory();
       createTaskList();
     });
 
@@ -53,6 +57,14 @@ describe("TaskList component", () => {
 
     it("should render item add row", () => {
       expect(taskList.itemAdd().isPresent()).toBe(true);
+    });
+
+    it("should disable undo button", () => {
+      expect(taskList.isUndoEnabled()).toBe(false);
+    });
+
+    it("should disable redo button", () => {
+      expect(taskList.isRedoEnabled()).toBe(false);
     });
 
     describe("and adding an item", () => {
@@ -70,6 +82,14 @@ describe("TaskList component", () => {
 
       it("should render item with correct task", () => {
         expect(taskList.items()[0].task()).toBe(SOME_TASK);
+      });
+
+      it("should enable undo button", () => {
+        expect(taskList.isUndoEnabled()).toBe(true);
+      });
+
+      it("should disable redo button", () => {
+        expect(taskList.isRedoEnabled()).toBe(false);
       });
 
       describe("and adding another item", () => {
@@ -90,19 +110,47 @@ describe("TaskList component", () => {
             expect(taskList.items().length).toBe(1);
           });
         });
+
+        describe("and clicking undo", () => {
+          beforeEach(() => {
+            taskList.clickUndo();
+          });
+
+          it("should render one item", () => {
+            expect(taskList.items().length).toBe(1);
+          });
+
+          it("should enable undo button", () => {
+            expect(taskList.isUndoEnabled()).toBe(true);
+          });
+
+          it("should enable redo button", () => {
+            expect(taskList.isRedoEnabled()).toBe(true);
+          });
+
+          describe("and clicking redo", () => {
+            beforeEach(() => {
+              taskList.clickRedo();
+            });
+
+            it("should render two items again", () => {
+              expect(taskList.items().length).toBe(2);
+            });
+          });
+        });
       });
     });
   });
 
   describe("with two initial tasks", () => {
     beforeEach(() => {
-      list = [{
+      listHistory = new ListHistory([{
         assignee: SOME_ASSIGNEE,
         task: SOME_TASK
       }, {
         assignee: OTHER_ASSIGNEE,
         task: OTHER_TASK
-      }];
+      }]);
       createTaskList();
     });
 

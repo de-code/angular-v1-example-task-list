@@ -1,3 +1,16 @@
+
+button {
+  background: #eee;
+  border: 2px solid lightgray;
+  font-weight: bold;
+  color: #444;
+}
+
+button:hover {
+  background: #ddd;
+  color: #222;
+}
+
 task-list {
   display: block;
   max-width: 500px;
@@ -23,10 +36,11 @@ task-list-item .assignee::after {
 
 task-list-item .delete {
   float: right;
-  background: #eee;
-  border: 2px solid lightgray;
-  font-weight: bold;
-  color: #444;
+}
+
+task-list .undo-redo {
+  padding: 5px;
+  text-align: right;
 }
 
 
