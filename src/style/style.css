@@ -36,10 +36,13 @@ task-list-item {
   padding: 5px;
   display: block;
   border: 1px solid lightgrey;
+}
+
+task-list-item,
+task-list-item-input input {
   font-size: 1em;
   font-family: Arial, Helvetica, sans-serif;
 }
-
 
 task-list-item .assignee {
   font-weight: bold;
