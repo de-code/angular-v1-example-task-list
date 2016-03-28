@@ -11,6 +11,12 @@ button:hover {
   color: #222;
 }
 
+button:disabled {
+  background: #fff;
+  color: #eee;
+  border-color: #eee;
+}
+
 task-list {
   display: block;
   max-width: 500px;
