@@ -24,7 +24,7 @@ export default {
 
   textContentOrNull: (e) => e ? e.textContent : null,
 
-  domElement: (e) => e.length > 0 ? e[0] : e,
+  domElement: (e) => e && e.length > 0 ? e[0] : e,
 
   // Note: Array.from or spread operator should have worked too... but didn't in PhantomJS
   toArray: (nodeList) => Array.prototype.slice.call(nodeList)

@@ -73,7 +73,7 @@ task-list-item-add > div {
   position: relative;
 }
 
-task-list-item-add input {
+task-list-item-input input {
   margin: 0;
   padding: 0;
   display: block;
@@ -81,14 +81,14 @@ task-list-item-add input {
   border: none;
 }
 
-task-list-item-add input:focus {
+task-list-item-input input:focus {
   border: none;
   outline: none;
 }
 
-task-list-item-add input::-webkit-input-placeholder {
+task-list-item-input input::-webkit-input-placeholder {
   color: white;
 }
-task-list-item-add input:focus::-webkit-input-placeholder {
+task-list-item-input input:focus::-webkit-input-placeholder {
   color: #999;
 }

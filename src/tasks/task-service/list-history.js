@@ -6,7 +6,7 @@ export default class {
     this.options = options;
     this.currentList = Immutable.List(initialList);
     this.history = new History({
-      logger: console.log.bind(console),
+      // logger: console.log.bind(console),
       limit: 100
     });
   }
@@ -34,6 +34,10 @@ export default class {
 
   push(item) {
     this.do(list => list.push(item), "add item");
+  }
+
+  updateAt(index, item) {
+    this.do(list => list.update(index, () => item), "update item");
   }
 
   filter(f) {

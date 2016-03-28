@@ -25,8 +25,10 @@ describe("TaskList component", () => {
     return taskList = taskListPageObjectFactory(utils.compile(`<task-list></task-list>`, $scope));
   };
 
+  const angularCleanObject = (o) => angular.fromJson(angular.toJson(o));
+
   beforeEach(() => {
-    taskService = jasmine.createSpyObj('taskService', ['list', 'history', 'add', 'remove']);
+    taskService = jasmine.createSpyObj('taskService', ['list', 'history', 'add', 'updateAt', 'remove']);
     var testModule = angular.module("tasks.test", [taskListModule.name])
       .value('taskService', taskService);
     angular.mock.module(testModule.name);
@@ -38,6 +40,7 @@ describe("TaskList component", () => {
     taskService.list.and.callFake(() => listHistory.list());
     taskService.history.and.callFake(() => listHistory);
     taskService.add.and.callFake((item) => listHistory.push(item));
+    taskService.updateAt.and.callFake((index, item) => listHistory.updateAt(index, item));
     taskService.remove.and.callFake((item) => listHistory.filter((current) => !angular.equals(current, item)));
   });
 
@@ -90,6 +93,20 @@ describe("TaskList component", () => {
 
       it("should disable redo button", () => {
         expect(taskList.isRedoEnabled()).toBe(false);
+      });
+
+      describe("and editing the item", () => {
+        beforeEach(() => {
+          taskList.items()[0].clickViewModeElement();
+          taskList.items()[0].input().enterAssigneeAndTask(OTHER_ASSIGNEE, OTHER_TASK);
+        });
+
+        it("should update the list", () => {
+          expect(angularCleanObject(listHistory.list().toArray())).toEqual([{
+            assignee: OTHER_ASSIGNEE,
+            task: OTHER_TASK
+          }]);
+        });
       });
 
       describe("and adding another item", () => {

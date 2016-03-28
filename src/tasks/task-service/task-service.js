@@ -36,6 +36,10 @@ export default class {
     this.listHistory.push(item);
   }
 
+  updateAt(index, item) {
+    this.listHistory.updateAt(index, item);
+  }
+
   remove(item) {
     this.listHistory.filter(t => !angular.equals(t, item));
   }

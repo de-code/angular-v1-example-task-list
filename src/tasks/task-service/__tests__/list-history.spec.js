@@ -45,6 +45,17 @@ describe("ListHistory", () => {
         expect(onChange).toHaveBeenCalled();
       });
 
+      describe("and updating the item", () => {
+        beforeEach(() => {
+          onChange.calls.reset();
+          listHistory.updateAt(0, "item1 revised");
+        });
+
+        it("should return list with updated item", () => {
+          expect(listHistory.list().toArray()).toEqual(["item1 revised"]);
+        });
+      });
+
       describe("and adding another item", () => {
         beforeEach(() => {
           onChange.calls.reset();

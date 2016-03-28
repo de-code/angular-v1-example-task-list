@@ -8,6 +8,10 @@ describe("TaskService", () => {
     assignee: "someone",
     task: "do something"
   };
+  const OTHER_ITEM = {
+    assignee: "other",
+    task: "other things"
+  };
 
   let taskService;
   let tasksExampleData;
@@ -104,6 +108,19 @@ describe("TaskService", () => {
     describe("list", () => {
       it("should return previously saved data", () => {
         expect(taskService.list().toArray()).toEqual(SAVED_DATA);
+      });
+    });
+
+    describe("updateAt", () => {
+      it("should update item of list", () => {
+        taskService.updateAt(0, OTHER_ITEM);
+        expect(taskService.list().toArray()).toEqual([OTHER_ITEM]);
+      });
+
+      it("should save to local storage", () => {
+        const expected = [OTHER_ITEM];
+        taskService.updateAt(0, OTHER_ITEM);
+        expect(localStorage.setItem).toHaveBeenCalledWith('taskList', JSON.stringify(expected));
       });
     });
   });

@@ -4,7 +4,7 @@ export default {
       <button class="undo" ng-click="$ctrl.onUndo()" ng-disabled="!$ctrl.hasUndo">Undo</button>
       <button class="redo" ng-click="$ctrl.onRedo()" ng-disabled="!$ctrl.hasRedo">Redo</button>
     </section>
-    <task-list-item ng-repeat="task in $ctrl.list" item="task" on-delete="$ctrl.onDelete(item)"></task-list-item>
+    <task-list-item ng-repeat="task in $ctrl.list" item="task" on-change="$ctrl.onChange($index, item)" on-delete="$ctrl.onDelete(item)"></task-list-item>
     <task-list-item-add on-add="$ctrl.onAdd(item)"></task-list-item-add>`,
 
   controller: ["taskService", function(taskService) {
@@ -18,6 +18,11 @@ export default {
 
     this.onAdd = (item) => {
       taskService.add(item);
+      refresh();
+    };
+
+    this.onChange = (index, item) => {
+      taskService.updateAt(index, item);
       refresh();
     };
 
